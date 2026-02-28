@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Bryce Murad — Solution Architect, Founder, Builder. Living resume." />
+  <title>Bryce Murad — Builder</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --void:          #0a0a0a;
+      --space:         #0f172a;
+      --surface:       #1e293b;
+      --glass:         rgba(255, 255, 255, 0.04);
+      --glass-hover:   rgba(255, 255, 255, 0.07);
+      --border:        rgba(255, 255, 255, 0.08);
+      --border-bright: rgba(255, 255, 255, 0.15);
+      --text-bright:   #f8fafc;
+      --text-body:     rgba(255, 255, 255, 0.75);
+      --text-muted:    rgba(255, 255, 255, 0.40);
+      --text-subtle:   rgba(255, 255, 255, 0.25);
+      --accent-1:      #3b82f6;
+      --accent-2:      #06b6d4;
+      --accent-glow:   rgba(59, 130, 246, 0.35);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--void); }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--void);
+      color: var(--text-body);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    /* Grain */
+    .grain { position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat; background-size: 200px 200px;
+    }
+
+    /* Nav */
+    .nav {
+      position: sticky; top: 0; z-index: 100; height: 64px;
+      background: rgba(10,10,10,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 32px;
+    }
+    .nav-inner { max-width: 900px; width: 100%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .nav-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16px; color: var(--text-bright); text-decoration: none; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { font-size: 13px; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent-2); }
+
+    /* Container */
+    .container { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+
+    /* Hero */
+    .hero { padding: 100px 0 80px; position: relative; overflow: hidden; }
+    .hero-orb { position: absolute; border-radius: 50%; pointer-events: none; filter: blur(120px); }
+    .hero-orb--blue { width: 500px; height: 500px; background: rgba(59,130,246,0.10); top: -100px; right: -150px; }
+    .hero-orb--cyan { width: 400px; height: 400px; background: rgba(6,182,212,0.08); bottom: -80px; left: -100px; }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-eyebrow { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-2); margin-bottom: 16px; }
+    .hero h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(36px, 5vw, 56px); color: var(--text-bright); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px; }
+    .hero-title { font-size: 20px; color: var(--text-body); margin-bottom: 24px; font-weight: 400; }
+    .hero-contact { display: flex; flex-wrap: wrap; gap: 20px; font-size: 14px; color: var(--text-muted); }
+    .hero-contact a { color: var(--accent-2); text-decoration: none; }
+    .hero-contact a:hover { text-decoration: underline; }
+
+    /* Section */
+    .section { padding: 64px 0; }
+    .section-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--accent-1); margin-bottom: 32px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+    .sep { height: 1px; background: linear-gradient(90deg, transparent, rgba(59,130,246,0.25), rgba(6,182,212,0.25), transparent); }
+
+    /* Currently Building */
+    .building-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .building-card {
+      background: var(--glass); border: 1px solid var(--border); border-radius: 12px; padding: 24px;
+      transition: background 0.25s, border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+    .building-card:hover { background: var(--glass-hover); border-color: var(--border-bright); transform: translateY(-2px); }
+    .building-card h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 18px; color: var(--text-bright); margin-bottom: 4px; }
+    .building-card .card-role { font-size: 13px; color: var(--accent-2); margin-bottom: 10px; font-weight: 500; }
+    .building-card p { font-size: 14px; color: var(--text-body); line-height: 1.6; }
+    .building-card a { color: var(--accent-2); text-decoration: none; font-size: 13px; font-weight: 500; }
+    .building-card a:hover { text-decoration: underline; }
+    .building-card--beacon:hover { box-shadow: 0 0 40px rgba(6,182,212,0.18); }
+    .building-card--bnx:hover { box-shadow: 0 0 40px rgba(139,92,246,0.18); }
+    .building-card--tl:hover { box-shadow: 0 0 40px rgba(59,130,246,0.18); }
+
+    /* Tags */
+    .tag { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400; padding: 3px 10px; border-radius: 6px; background: rgba(59,130,246,0.10); color: #60a5fa; border: 1px solid rgba(59,130,246,0.15); margin: 3px 4px 3px 0; }
+
+    /* Experience */
+    .exp-item { margin-bottom: 36px; }
+    .exp-item:last-child { margin-bottom: 0; }
+    .exp-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+    .exp-role { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 18px; color: var(--text-bright); }
+    .exp-company { font-size: 15px; color: var(--text-body); }
+    .exp-date { font-size: 13px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; white-space: nowrap; }
+    .exp-location { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; }
+    .exp-bullets { list-style: none; padding: 0; }
+    .exp-bullets li { font-size: 14px; color: var(--text-body); line-height: 1.7; padding-left: 16px; position: relative; margin-bottom: 4px; }
+    .exp-bullets li::before { content: ''; position: absolute; left: 0; top: 10px; width: 4px; height: 4px; border-radius: 50%; background: var(--accent-1); }
+
+    /* Skills grid */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; }
+    .skill-group h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; color: var(--text-bright); margin-bottom: 10px; }
+    .skill-group .tags { display: flex; flex-wrap: wrap; }
+
+    /* Education */
+    .edu-item { margin-bottom: 24px; }
+    .edu-item:last-child { margin-bottom: 0; }
+    .edu-school { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16px; color: var(--text-bright); }
+    .edu-detail { font-size: 14px; color: var(--text-body); }
+    .edu-meta { font-size: 13px; color: var(--text-muted); }
+
+    /* Certs */
+    .cert-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .cert { font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 6px 14px; border-radius: 8px; background: var(--glass); border: 1px solid var(--border); color: var(--text-body); }
+
+    /* Athletics */
+    .athletics-highlight { font-size: 15px; color: var(--text-bright); font-weight: 500; margin-bottom: 12px; }
+    .athletics-sub { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    /* Footer */
+    .footer { padding: 48px 0 32px; border-top: 1px solid var(--border); margin-top: 40px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--accent-2); }
+    .footer-copy { font-size: 12px; color: var(--text-subtle); }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .nav { padding: 0 16px; }
+      .container { padding: 0 16px; }
+      .hero { padding: 64px 0 48px; }
+      .section { padding: 48px 0; }
+      .nav-links { gap: 16px; }
+      .exp-header { flex-direction: column; }
+      .building-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-name">Bryce Murad</a>
+      <div class="nav-links">
+        <a href="#building">Building</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="https://this.live">this.live</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-orb hero-orb--blue" aria-hidden="true"></div>
+    <div class="hero-orb hero-orb--cyan" aria-hidden="true"></div>
+    <div class="container hero-content">
+      <p class="hero-eyebrow">Founder / Solution Architect / Builder</p>
+      <h1>Bryce Murad</h1>
+      <p class="hero-title">Solution Architect turned founder. Building AI-powered software products and trading systems.</p>
+      <div class="hero-contact">
+        <span>Storrs, CT</span>
+        <span>860-942-2883</span>
+        <a href="mailto:brycemurad0@gmail.com">brycemurad0@gmail.com</a>
+        <a href="https://linkedin.com/in/bryce-murad" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- Currently Building -->
+  <section class="section" id="building">
+    <div class="container">
+      <h2 class="section-title">Currently Building</h2>
+      <div class="building-grid">
+        <div class="building-card building-card--beacon">
+          <h3>Beacon</h3>
+          <div class="card-role">Co-Founder / Technical Lead</div>
+          <p>AI-powered lead generation for contractors. Surfaces qualified prospects, automates outreach, fills pipelines. Production-deployed on Railway with Postgres.</p>
+          <br><a href="https://beacon.this.live">beacon.this.live</a>
+        </div>
+        <div class="building-card building-card--bnx">
+          <h3>Brokernomex</h3>
+          <div class="card-role">Co-Founder</div>
+          <p>Agentic trading platform with autonomous ORB execution, catalyst scoring, and options spread selection. Targeting SEC/FINRA compliance for commercial release.</p>
+        </div>
+        <div class="building-card building-card--tl">
+          <h3>this.live LLC</h3>
+          <div class="card-role">Co-Founder</div>
+          <p>Software publishing house. Multi-agent AI platform deployed across dedicated hardware with VLAN segmentation, Tailscale mesh, and cloud VPS nodes.</p>
+          <br><a href="https://this.live">this.live</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- Experience -->
+  <section class="section" id="experience">
+    <div class="container">
+      <h2 class="section-title">Experience</h2>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <span class="exp-role">Co-Founder &amp; Technical Lead</span>
+            <span class="exp-company"> / this.live LLC &amp; Brokernomex LLC</span>
+          </div>
+          <span class="exp-date">2025 - Present</span>
+        </div>
+        <ul class="exp-bullets">
+          <li>Architecting multi-agent AI platform (OpenClaw) across dedicated hardware (Mac mini M4 Pro, RTX 5080 workstation) with VLAN segmentation and Tailscale mesh</li>
+          <li>Deployed production LLM routing stack (LiteLLM) on RTX 5080 with CUDA 12.9, routing across 6 task tiers with Redis semantic caching and cloud fallbacks</li>
+          <li>Built multi-node agent network with Telegram integrations, automated cron pipelines, and nightly security audits</li>
+          <li>Developing agentic trading software with autonomous ORB execution, catalyst scoring, and options spread selection</li>
+          <li>Shipped Beacon: AI lead gen tool for contractors, deployed on Railway with Postgres</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <span class="exp-role">Network Solutions Architect</span>
+            <span class="exp-company"> / Ensono</span>
+          </div>
+          <span class="exp-date">02/2022 - 2025</span>
+        </div>
+        <div class="exp-location">Chicago, IL</div>
+        <ul class="exp-bullets">
+          <li>Designed HLD network architecture for 60+ Fortune 1000 clients and State/Local governments</li>
+          <li>Close rate &gt;50% on complex enterprise deals: Freddie Mac, 3M, Credit Suisse, Exxon, John Deere, UPS, Princeton, 10+ government agencies</li>
+          <li>Enterprise cost modeling, HLD diagrams, RFP/RFQ responses, client negotiations, and demos</li>
+          <li>Project Apollo: Partnered with Microsoft to create a new MFaaS service in public cloud</li>
+          <li>Standardized network products across the organization; retired legacy quoting system after building ServicePath MVP</li>
+          <li>Cross-functional PM spanning SAs, Investment, Product, and C-Suite for Business Express standardization project</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <span class="exp-role">Pre-Sales Intern / Network Intern</span>
+            <span class="exp-company"> / Ensono</span>
+          </div>
+          <span class="exp-date">06/2021 - 02/2022</span>
+        </div>
+        <div class="exp-location">Chicago, IL</div>
+        <ul class="exp-bullets">
+          <li>Scripted 350 device banners and 150 interface descriptions across 2 data centers</li>
+          <li>Presented Blockchain CMDB Solution to executive leadership</li>
+          <li>Completed CCNA and Azure Fundamentals certifications during internship</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- Skills -->
+  <section class="section" id="skills">
+    <div class="container">
+      <h2 class="section-title">Technical Stack</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h4>AI / Infrastructure</h4>
+          <div class="tags">
+            <span class="tag">OpenClaw</span>
+            <span class="tag">LiteLLM</span>
+            <span class="tag">Ollama</span>
+            <span class="tag">CUDA</span>
+            <span class="tag">Docker</span>
+            <span class="tag">Tailscale</span>
+            <span class="tag">Redis</span>
+            <span class="tag">Python</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Networking</h4>
+          <div class="tags">
+            <span class="tag">Cisco IOS</span>
+            <span class="tag">VLANs</span>
+            <span class="tag">OSPF</span>
+            <span class="tag">BGP</span>
+            <span class="tag">EIGRP</span>
+            <span class="tag">MPLS</span>
+            <span class="tag">IPSec VPN</span>
+            <span class="tag">HSRP</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Cloud / DevOps</h4>
+          <div class="tags">
+            <span class="tag">Cloudflare</span>
+            <span class="tag">Railway</span>
+            <span class="tag">Hetzner</span>
+            <span class="tag">Linux</span>
+            <span class="tag">GitHub Actions</span>
+            <span class="tag">Azure</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4>Business</h4>
+          <div class="tags">
+            <span class="tag">MEDDPICC</span>
+            <span class="tag">Salesforce</span>
+            <span class="tag">ServicePath</span>
+            <span class="tag">Cost Modeling</span>
+            <span class="tag">RFP/RFQ</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- Education -->
+  <section class="section" id="education">
+    <div class="container">
+      <h2 class="section-title">Education &amp; Certifications</h2>
+
+      <div class="edu-item">
+        <div class="edu-school">Southern Connecticut State University</div>
+        <div class="edu-detail">B.S. Sports Management / Division I Swim Team</div>
+        <div class="edu-meta">Class of 2020 / 3.33 GPA</div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-school">NexGenT</div>
+        <div class="edu-detail">Full Stack Network Engineer -- 24-week military-grade program</div>
+        <div class="edu-meta">04/2021 - 10/2021</div>
+      </div>
+
+      <div style="margin-top: 24px;">
+        <div class="cert-list">
+          <span class="cert">CCNA</span>
+          <span class="cert">Azure Fundamentals (AZ-900)</span>
+          <span class="cert">NexGenT FSNP</span>
+          <span class="cert">NexGenT FSNA</span>
+          <span class="cert">MEDDPICC</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- Athletics -->
+  <section class="section" id="athletics">
+    <div class="container">
+      <h2 class="section-title">Athletics</h2>
+      <div class="athletics-highlight">
+        Division I athlete at Southern Connecticut State University. NE-10 Conference Champion. NE-10 All-Conference.
+      </div>
+      <div class="athletics-sub">
+        As an age group swimmer: Connecticut state record holder, national first-place honors (50 Fly, 50 Free, 200 IM), selected for National Diversity Select Camp at the Olympic Training Center in Colorado Springs.
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- Travel -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Global Perspective</h2>
+      <p style="font-size: 15px; color: var(--text-body);">6 years living in Singapore. Summer work in Norway. 30+ countries across Europe, Asia, Oceania, and the Americas.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-links">
+        <a href="https://this.live">this.live</a>
+        <a href="https://beacon.this.live">Beacon</a>
+        <a href="https://linkedin.com/in/bryce-murad" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:brycemurad0@gmail.com">Email</a>
+      </div>
+      <span class="footer-copy">This is a living document. Last updated February 2026.</span>
+    </div>
+  </footer>
+</body>
+</html>
