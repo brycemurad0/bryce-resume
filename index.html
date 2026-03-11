@@ -8,11 +8,11 @@
   <meta property="og:description" content="Solution Architect turned founder. Building AI-powered software products at this.live.">
   <meta property="og:url" content="https://bryce.this.live">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://bryce.this.live/og-image.png">
+  <meta property="og:image" content="https://bryce.this.live/headshot.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Bryce Murad — Builder">
   <meta name="twitter:description" content="Solution Architect turned founder. Building AI-powered software products at this.live.">
-  <meta name="twitter:image" content="https://bryce.this.live/og-image.png">
+  <meta name="twitter:image" content="https://bryce.this.live/headshot.jpg">
   <title>Bryce Murad — Builder</title>
   <link rel="icon" type="image/png" href="/favicon.png?v=2">
   <link rel="apple-touch-icon" href="/og-image.png">
@@ -84,6 +84,12 @@
     .hero-contact { display: flex; flex-wrap: wrap; gap: 20px; font-size: 14px; color: var(--text-muted); }
     .hero-contact a { color: var(--accent-2); text-decoration: none; }
     .hero-contact a:hover { text-decoration: underline; }
+
+    /* Headshot */
+    .hero-layout { display: flex; align-items: center; gap: 48px; }
+    .hero-text { flex: 1; }
+    .hero-headshot { width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(0, 212, 255, 0.3); box-shadow: 0 0 40px rgba(0, 212, 255, 0.15); flex-shrink: 0; }
+    @media (max-width: 640px) { .hero-layout { flex-direction: column-reverse; gap: 24px; text-align: center; } .hero-headshot { width: 140px; height: 140px; } .hero-contact { justify-content: center; } }
 
     /* Section */
     .section { padding: 64px 0; }
@@ -181,14 +187,19 @@
     <div class="hero-orb hero-orb--blue" aria-hidden="true"></div>
     <div class="hero-orb hero-orb--cyan" aria-hidden="true"></div>
     <div class="container hero-content">
-      <p class="hero-eyebrow">Founder / Solution Architect / Builder</p>
-      <h1>Bryce Murad</h1>
-      <p class="hero-title">Solution Architect turned founder. Building AI-powered software products and trading systems.</p>
-      <div class="hero-contact">
-        <span>Storrs, CT</span>
-        <span>860-942-2883</span>
-        <a href="mailto:brycemurad0@gmail.com">brycemurad0@gmail.com</a>
-        <a href="https://linkedin.com/in/bryce-murad" target="_blank" rel="noopener">LinkedIn</a>
+      <div class="hero-layout">
+        <div class="hero-text">
+          <p class="hero-eyebrow">Founder / Solution Architect / Builder</p>
+          <h1>Bryce Murad</h1>
+          <p class="hero-title">Solution Architect turned founder. Building AI-powered software products and trading systems.</p>
+          <div class="hero-contact">
+            <span>Storrs, CT</span>
+            <span>860-942-2883</span>
+            <a href="mailto:brycemurad0@gmail.com">brycemurad0@gmail.com</a>
+            <a href="https://linkedin.com/in/bryce-murad" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+        <img src="/headshot.jpg" alt="Bryce Murad" class="hero-headshot" width="200" height="200">
       </div>
     </div>
   </section>
